@@ -8,10 +8,21 @@ class OrderCard extends HTMLElement {
     // Título principal
     const orderTitle = `Orden #${this.order.id || ''}`;
 
+    // Formatear fecha
+    const formatDate = (dateString) => {
+      if (!dateString) return '-';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('es-ES', { 
+        year: 'numeric', 
+        month: '2-digit', 
+        day: '2-digit' 
+      });
+    };
+
     // Diccionario clave-valor:
     const fields = [
       ['Cliente', this.order.customer_id],
-      ['Fecha', this.order.order_date],
+      ['Fecha', formatDate(this.order.order_date)],
       ['Producto', this.order.product_name],
       ['Valor total', "$" + parseFloat(this.order.order_total || 0).toFixed(2)],
     ];
